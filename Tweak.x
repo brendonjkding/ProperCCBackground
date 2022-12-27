@@ -80,7 +80,7 @@
 
 %ctor{
 	NSLog(@"ctor: ProperCCBackgroundiPad");
-    if([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad){
+    if([[[UIDevice currentDevice] model] isEqualToString:@"iPad"]){
         %init(hook);
     }
 }
