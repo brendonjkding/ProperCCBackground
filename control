@@ -1,7 +1,7 @@
 Package: com.brend0n.properccbackgroundipad
 Name: ProperCCBackground(iPad)
 Depends: mobilesubstrate
-Version: 0.0.2
+Version: 0.0.3
 Architecture: iphoneos-arm
 Description: Make Control Center not to blur the whole screen.
 Maintainer: Brend0n <brendonjkding@126.com>
