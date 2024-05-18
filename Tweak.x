@@ -11,6 +11,7 @@
 @property (nonatomic,readonly) UIScrollView * overlayScrollView; 
 @property (nonatomic,readonly) UIView * overlayContainerView; 
 @property (nonatomic,readonly) id overlayHeaderView; 
+@property (strong) UIView *pccb_touchBlockView;
 @end
 
 @interface CCUIOverlayStatusBarPresentationProvider : NSObject
@@ -24,12 +25,22 @@
 %group hook
 
 %hook CCUIModularControlCenterOverlayViewController
+%property (strong) UIView *pccb_touchBlockView;
 -(void)viewDidLoad{
     %orig;
     double maxWidth=MAX(self.view.frame.size.width,self.view.frame.size.height);
     UILabel *_touchBlockView = [[UILabel alloc] initWithFrame:CGRectMake(-10,0,maxWidth+10,maxWidth)];
     [self.view addSubview:_touchBlockView];
     _touchBlockView.text=@"1";
+    self.pccb_touchBlockView = _touchBlockView;
+}
+- (void)presentAnimated:(_Bool)arg1 withCompletionHandler:(id)arg2{
+    self.pccb_touchBlockView.hidden = NO;
+    %orig;
+}
+- (void)dismissAnimated:(_Bool)arg1 withCompletionHandler:(id)arg2{
+    self.pccb_touchBlockView.hidden = YES;
+    %orig;
 }
 %end//CCUIModularControlCenterOverlayViewController
 %hook CCUIOverlayStatusBarPresentationProvider
